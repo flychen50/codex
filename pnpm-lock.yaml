@@ -99,6 +99,9 @@ importers:
       to-rotated:
         specifier: ^1.0.0
         version: 1.0.0
+      typecheck:
+        specifier: ^0.1.2
+        version: 0.1.2
       use-interval:
         specifier: 1.4.0
         version: 1.4.0(react@18.3.1)
@@ -2477,6 +2480,9 @@ packages:
   type-is@2.0.1:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
+
+  typecheck@0.1.2:
+    resolution: {integrity: sha512-noA7T++dtHFemmk++XgotLp47kcu8ezbvN3hUUljZvntPGDWi9Ci0c24x6onS92PxOUNZFYChH8KPXRaoCcjgQ==}
 
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
@@ -5171,6 +5177,8 @@ snapshots:
       content-type: 1.0.5
       media-typer: 1.1.0
       mime-types: 3.0.1
+
+  typecheck@0.1.2: {}
 
   typed-array-buffer@1.0.3:
     dependencies:
