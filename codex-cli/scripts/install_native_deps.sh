@@ -72,7 +72,8 @@ ARTIFACTS_DIR="$(mktemp -d)"
 trap 'rm -rf "$ARTIFACTS_DIR"' EXIT
 
 # NB: The GitHub CLI `gh` must be installed and authenticated.
-gh run download --dir "$ARTIFACTS_DIR" --repo openai/codex "$WORKFLOW_ID"
+# Use the correct GitHub CLI binary (not the system's custom gh command)
+/usr/bin/gh run download --dir "$ARTIFACTS_DIR" --repo openai/codex "$WORKFLOW_ID"
 
 # Decompress the artifacts for Linux sandboxing.
 zstd -d "$ARTIFACTS_DIR/x86_64-unknown-linux-musl/codex-linux-sandbox-x86_64-unknown-linux-musl.zst" \

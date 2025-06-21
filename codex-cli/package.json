@@ -49,6 +49,7 @@
     "shell-quote": "^1.8.2",
     "strip-ansi": "^7.1.0",
     "to-rotated": "^1.0.0",
+    "typecheck": "^0.1.2",
     "use-interval": "1.4.0",
     "zod": "^3.24.3"
   },
