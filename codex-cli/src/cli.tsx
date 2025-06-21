@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import "dotenv/config";
 
+// Check for dangerous flag early and set environment variable
+if (process.argv.includes('--dangerously-auto-approve-everything')) {
+  process.env["CODEX_UNSAFE_ALLOW_NO_SANDBOX"] = "1";
+}
+
 // Exit early if on an older version of Node.js (< 22)
 const major = process.versions.node.split(".").map(Number)[0]!;
 if (major < 22) {
@@ -535,11 +540,13 @@ if (cli.flags.quiet) {
 
   // Determine approval policy for quiet mode based on flags
   const quietApprovalPolicy: ApprovalPolicy =
-    cli.flags.fullAuto || cli.flags.approvalMode === "full-auto"
+    cli.flags.dangerouslyAutoApproveEverything
       ? AutoApprovalMode.FULL_AUTO
-      : cli.flags.autoEdit || cli.flags.approvalMode === "auto-edit"
-        ? AutoApprovalMode.AUTO_EDIT
-        : config.approvalMode || AutoApprovalMode.SUGGEST;
+      : cli.flags.fullAuto || cli.flags.approvalMode === "full-auto"
+        ? AutoApprovalMode.FULL_AUTO
+        : cli.flags.autoEdit || cli.flags.approvalMode === "auto-edit"
+          ? AutoApprovalMode.AUTO_EDIT
+          : config.approvalMode || AutoApprovalMode.SUGGEST;
 
   await runQuietMode({
     prompt,
@@ -565,12 +572,16 @@ if (cli.flags.quiet) {
 // 4. config.approvalMode - use the approvalMode setting from ~/.codex/config.json.
 // 5. Default – suggest mode (prompt for everything).
 
+// Environment variable is set early in the file for dangerous flag
+
 const approvalPolicy: ApprovalPolicy =
-  cli.flags.fullAuto || cli.flags.approvalMode === "full-auto"
+  cli.flags.dangerouslyAutoApproveEverything
     ? AutoApprovalMode.FULL_AUTO
-    : cli.flags.autoEdit || cli.flags.approvalMode === "auto-edit"
-      ? AutoApprovalMode.AUTO_EDIT
-      : config.approvalMode || AutoApprovalMode.SUGGEST;
+    : cli.flags.fullAuto || cli.flags.approvalMode === "full-auto"
+      ? AutoApprovalMode.FULL_AUTO
+      : cli.flags.autoEdit || cli.flags.approvalMode === "auto-edit"
+        ? AutoApprovalMode.AUTO_EDIT
+        : config.approvalMode || AutoApprovalMode.SUGGEST;
 
 const instance = render(
   <App
